@@ -1,26 +1,25 @@
-#include<stdio.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#define SIZE 20
 
-int main(int argc, char *argv[]) {
+// Main function in the program, no program arguments supported
+int main (int argc, char *argv[]) {
+    
+    int n = atoi(argv[1]);
+    int a[SIZE];
+	int i = 0;
 
-    int binaryNumber = argv[1];
-    int count;
+	while (n>0)
+	{
+		a[i] = n % 2;
+		i = i + 1;
+		n = n / 2;
+	}
 
-    printf ("Introduce the number you wanna convert to binary: \n");
-	scanf_s("%i\n", &binaryNumber);
-
-    int num = 12;
-    int bin;
-    power = 0;
-
-    for(i=0;num>0;i++){
-        bin[i]=n%2;
-        num=num/2;
-    }
-
-    printf("\nBinary of Given Number is=");
-
-    for(i=i-1;i>=0;i--){
-        printf("%d",bin[i]);
-    }
+	for (i--; i >= 0; i--)
+		printf("%d", a[i]);
+	printf("\n");
 	return 0;
-}
+   
+} 

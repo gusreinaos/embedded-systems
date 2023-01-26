@@ -1,9 +1,21 @@
-#include<stdio.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <limits.h>
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[]){
+    // store binary value in integer variable
+    int bin = atoi(argv[1]);
 
-    int binaryNumber =  argv[1];
-    printf ("Introduce the number you wanna convert to binary: ");
-	scanf_s("%d", &n);
+    // declare 
+    int dec = 0, i = 1, res;
 
+    while(bin != 0){
+        res = bin %10;
+        dec = dec + res * i;
+        i = i * 2;
+        bin = bin / 10;
+    }
+
+    printf("%X\n",dec);
+    return 0;
 }
