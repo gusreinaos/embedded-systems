@@ -3,10 +3,18 @@
 #include <stdlib.h>
 #define SIZE 20
 
+int countBits(int number)
+{      
+      // log function in base 2 
+      // take only integer part
+      return (int)log2(number)+1;
+}
+
 // Main function in the program, no program arguments supported
 int main (int argc, char *argv[]) {
     
-    int n = atoi(argv[1]);
+    long n = atoi(argv[1]);
+    int bits = countBits(n);
     int a[SIZE];
 	int i = 0;
 
