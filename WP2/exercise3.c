@@ -131,11 +131,11 @@ void printfile(void) {
     //While there is still a record to read in the file of a person, keep reading
     while (fread(personptr, sizeof(PERSON), 1, fileptr) == 1) {
         //Printing the first name of the person record found
-        printf("Firstname: %s\n", personptr -> firstname);
+        printf("First name: %s\n", personptr -> firstname);
         //Printing the family name of the person record found
-        printf("Famname: %s\n", personptr -> famname);
+        printf("Family name: %s\n", personptr -> famname);
         //Printing the personal number of the person record found
-        printf("Personal Number: %s\n\n", personptr -> pers_number);
+        printf("Personal number: %s\n\n", personptr -> pers_number);
     }
     //Closing the file with its pointer after the action is finished
     fclose(fileptr);
