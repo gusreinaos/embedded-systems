@@ -47,7 +47,7 @@ PERSON input_record(void) {
     //Input for the first name of the person record
     do{
         //Scanning the input of the user
-        printf("%s", "\nPlease enter a  valid first name (max 20 characters with no digits): " );
+        printf("%s", "Please enter a  valid first name (max 20 characters with no digits): " );
         scanf("%s", person.firstname);
 
         //Checking whether the input has digits and the length is not more than 20
@@ -61,7 +61,7 @@ PERSON input_record(void) {
     //Input for the family name of the person record
     do{
         //Scanning the input of the user
-        printf("%s", "\nPlease enter a  valid family name (max 20 characters with no digits): " );
+        printf("%s", "Please enter a  valid family name (max 20 characters with no digits): " );
         scanf("%s", person.famname);
 
         //Checking whether the input has digits and the length is not more than 20
@@ -75,7 +75,7 @@ PERSON input_record(void) {
     //Input for the personal number of the person record
     do{
         //Scanning the input of the user
-        printf("%s", "\nPlease enter a  valid personal number (max 13 characters with no digits with the format yyyymmddnnnc): " );
+        printf("%s", "Please enter a  valid personal number (max 13 characters with no digits with the format yyyymmddnnnc): " );
         scanf("%s", person.pers_number);
 
         //Checking whether the input has digits and the length is not more than 13
@@ -156,7 +156,6 @@ void search_by_firstname(char *name) {
         //Stopping the execution of the method
         return;
     }
-
     //Allocating the person in memory since it allows us to allocate memory dynamically on the heap, which has a larger size than the stack
     PERSON *personptr = malloc(sizeof(PERSON));
     //Checking for any errors during opening the file
@@ -168,9 +167,9 @@ void search_by_firstname(char *name) {
     //While there is still a record to read in the file of a person, keep reading
     while (fread(personptr, sizeof(PERSON), 1, fileptr) == 1) {
         //Checking whether the first name of the person read equals the first name provided by the user
-        if (strcmp(personptr -> firstname, name) == 0) {
+        if ((strcmp(personptr -> firstname, name) == 0) || ((strcmp(personptr -> famname, name) == 0))) {
             //If the first name of the user read and the first name provided match then print all of the attributes of that person
-            printf("Firstname: %s\n", personptr -> firstname);
+            printf("\nFirstname: %s\n", personptr -> firstname);
             printf("Famname: %s\n", personptr -> famname);
             printf("Personal Number: %s\n", personptr -> pers_number);
             //Increase the number of matches for that first name
@@ -179,10 +178,10 @@ void search_by_firstname(char *name) {
     }
     //Checking whether there were no matches provided for the first name provided, and therefore printing it as so to the user
     if (num_matches == 0) {
-        printf("%s not found.\n", name);
+        printf("\n%s not found.\n\n", name);
     } else {
         //Printing the number of matches found for the first name
-        printf("%d matches found.\n", num_matches);
+        printf("\n%d matches found.\n\n", num_matches);
     }
     //Closing the file with its pointer after the action is finished
     fclose(fileptr);
@@ -214,9 +213,9 @@ int main(){
 
     do {
         //Present the menu options for the user
-        printf("\n1 Create a new and delete the old file.\n2 Add a new person to the file. \n3 Search for a person in the file.\n4 Print out all in the file.\n5 Exit the program. \n");
+        printf("1 Create a new and delete the old file.\n2 Add a new person to the file. \n3 Search for a person in the file.\n4 Print out all in the file.\n5 Exit the program. \n");
         //Ask the user for an option of the menu and scan it
-        printf("\nPlease introduce your option: ");
+        printf("Please introduce your option: ");
         scanf("%d", &input);
         printf("\n");
 
@@ -226,8 +225,8 @@ int main(){
             ppost=malloc(sizeof(PERSON)); 
 
             //Copy into the char arrays of the person record
-            strcpy(ppost[0].firstname, "FirstNameExample");
-            strcpy(ppost[0].famname, "FamilyNameExample");
+            strcpy(ppost[0].firstname, "Firstnameexample");
+            strcpy(ppost[0].famname, "Familynameexample");
             strcpy(ppost[0].pers_number, "0303046031");
 
             //Call the method to write the dummy data
@@ -254,7 +253,7 @@ int main(){
              //Input for the first name of the person record
              do {
                 //Scanning the input of the user
-                printf("%s", "\nPlease enter a  valid first name (max 20 characters with no digits): " );
+                printf("%s", "Please enter a  valid either first or last name (max 20 characters with no digits): " );
                 scanf("%s", fname);
 
                 //Checking whether the input has digits and the length is not more than 20
@@ -275,9 +274,14 @@ int main(){
             printfile();
         }
         //Option5: Exit the system
-        else{
+        else if (input == 5){
             input = 7;
             printf("Exiting the program, see you soon!\n");
+        }
+        //Another option asks for another input
+        else {
+           input = 4;
+           printf("Invalid option, please enter another one.\n");
         }
     }
     //Keep reading until a number that is not within the range 1-5 is inputted
