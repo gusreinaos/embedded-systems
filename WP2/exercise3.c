@@ -1,3 +1,7 @@
+// (C) Juan García, Oscar Reina, Jan Manel, group: 19 (2023) 
+// Work package 2 
+// Exercise 2.3
+// Submission code: 5556 (provided by your TA-s)
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -26,10 +30,13 @@ void append_file(PERSON *inrecord);    // appends a new person to the file
 
 // -----Functions Utils -------
 
+//Function that checks if every character in the string is a digit or not
 int has_no_digits(const char *str) {
     int i = 0;
     while (str[i] != '\0') {
+        //Checking whether it is a digit or not for every position
         if (isdigit(str[i])) {
+            //Break the function returning 0
             return 0;
         }
         i++;
@@ -168,9 +175,12 @@ void search_by_firstname(char *name) {
     while (fread(personptr, sizeof(PERSON), 1, fileptr) == 1) {
         //Checking whether the first name of the person read equals the first name provided by the user
         if ((strcmp(personptr -> firstname, name) == 0) || ((strcmp(personptr -> famname, name) == 0))) {
-            //If the first name of the user read and the first name provided match then print all of the attributes of that person
+            //If the first name or last name of the user read and the name provided match then print all of the attributes of that person
+            //Printing the first name of the person record found
             printf("\nFirstname: %s\n", personptr -> firstname);
+            //Printing the family name of the person record found
             printf("Famname: %s\n", personptr -> famname);
+            //Printing the personal number of the person record found
             printf("Personal Number: %s\n", personptr -> pers_number);
             //Increase the number of matches for that first name
             num_matches++;
@@ -193,7 +203,7 @@ void search_by_firstname(char *name) {
 void append_file(PERSON *inrecord) {
     //Creating a pointer for the file we want to open
     FILE* fileptr;
-    //Opening the database binary file in order to read its content
+    //Opening the database binary file in order to update its content
     fileptr = fopen("database.bin", "ab");
     //Checking for any errors during opening the file
     if (fileptr == NULL){
@@ -244,7 +254,7 @@ int main(){
             append_file(personptr);
 
         }
-        //Option 3: Add a new person to the file.
+        //Option 3: Search for a person in the file.
         else if(input == 3) {
             
             char fname[MAXLEN];
