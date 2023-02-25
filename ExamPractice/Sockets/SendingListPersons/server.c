@@ -1,70 +1,93 @@
+#include "person.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/socket.h>
 #include <netinet/in.h>
-#include "person.h"
+#include <sys/socket.h>
+#include <unistd.h>
 
-#define PORT 5000
+#define PORT 12345
+#define BUFFER_SIZE 1024
 
-int main()
-{
-    // Create socket
-    int sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    if (sockfd == -1) {
-        perror("socket");
+int main() {
+    // Create the linked list of persons
+    Person* head = create_linked_list();
+    
+    // Print the list on the console
+    printf("List of persons:\n");
+    Person* current = head;
+    while (current != NULL) {
+        printf("%s %s %s %s %d\n", current->sName, current->sSurname, current->sPnr, current->sAddress, current->iAge);
+        current = current->next;
+    }
+    
+    // Create the socket
+    int server_fd, new_socket, valread;
+    struct sockaddr_in address;
+    int opt = 1;
+    int addrlen = sizeof(address);
+    char buffer[BUFFER_SIZE] = {0};
+    char message[BUFFER_SIZE] = {0};
+    
+    if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0) {
+        perror("socket failed");
         exit(EXIT_FAILURE);
     }
-
-    // Bind to port
-    struct sockaddr_in addr;
-    addr.sin_family = AF_INET;
-    addr.sin_port = htons(PORT);
-    addr.sin_addr.s_addr = INADDR_ANY;
-
-    int bind_result = bind(sockfd, (struct sockaddr *)&addr, sizeof(addr));
-    if (bind_result == -1) {
-        perror("bind");
+    
+    // Set socket options
+    if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt, sizeof(opt))) {
+        perror("setsockopt");
         exit(EXIT_FAILURE);
     }
-
-    // Listen for incoming connections
-    int listen_result = listen(sockfd, 1);
-    if (listen_result == -1) {
+    
+    address.sin_family = AF_INET;
+    address.sin_addr.s_addr = INADDR_ANY;
+    address.sin_port = htons(PORT);
+    
+    // Bind the socket to the specified port
+    if (bind(server_fd, (struct sockaddr *)&address, sizeof(address))<0) {
+        perror("bind failed");
+        exit(EXIT_FAILURE);
+    }
+    
+    // Start listening for incoming connections
+    if (listen(server_fd, 3) < 0) {
         perror("listen");
         exit(EXIT_FAILURE);
     }
-
-    // Create linked list of persons
-    Person *first_person = create_person_list();
-
-    // Print list to console
-    print_person_list(first_person);
-
-    // Accept incoming connection
-    int clientfd = accept(sockfd, NULL, NULL);
-    if (clientfd == -1) {
-        perror("accept");
-        exit(EXIT_FAILURE);
+    
+    // Accept incoming connections and send the person register
+    while (1) {
+        printf("Waiting for a client to connect...\n");
+        if ((new_socket = accept(server_fd, (struct sockaddr *)&address, (socklen_t*)&addrlen)) < 0) {
+            perror("accept");
+            exit(EXIT_FAILURE);
+        }
+        
+        // Send the number of persons in the register
+        int num_persons = 0;
+        current = head;
+        while (current != NULL) {
+            num_persons++;
+            current = current->next;
+        }
+        sprintf(message, "%d", num_persons);
+        send(new_socket, message, strlen(message), 0);
+        printf("Sent number of persons in the register: %s\n", message);
+        
+        // Send each person separately
+        current = head;
+        while (current != NULL) {
+            sprintf(message, "%s %s %s %s %d", current->sName, current->sSurname, current->sPnr, current->sAddress, current->iAge);
+            send(new_socket, message, strlen(message), 0);
+            printf("Sent person: %s\n", message);
+            current = current->next;
+        }
+        
+        // Close the connection
+        printf("Closing connection...\n");
+        close(new_socket);
     }
-
-    // Send number of persons in list
-    int num_persons = count_persons(first_person);
-    send(clientfd, &num_persons, sizeof(num_persons), 0);
-
-    // Send each person in list
-    Person *current_person = first_person;
-    while (current_person != NULL) {
-        send(clientfd, current_person, sizeof(Person), 0);
-        current_person = current_person->next;
-    }
-
-    // Close sockets and free memory
-    close(clientfd);
-    close(sockfd);
-    free_person_list(first_person);
-
+    
     return 0;
 }

@@ -1,11 +1,11 @@
-#define MAX 10
+#define MAX 20
 
 typedef struct { 
-    char sName[MAX];   // Person’s given name 
+    char sName[MAX];    // Person’s given name 
     char sSurname[MAX]; // Person’s surname 
-    char sPnr[MAX];  // Person’s social security number 
+    char sPnr[MAX];     // Person’s social security number 
     char sAddress[MAX]; // Person’s city of residence 
+    int iAge:
 } Person; 
 
-Person *create_list(void);
-void print_list(Person *head);
+Person* createLinkedList(void);
