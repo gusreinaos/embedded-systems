@@ -1,3 +1,25 @@
+/*
+This code is a server that listens for incoming connections, accepts them, and then sends a list of persons to the client. 
+It uses sockets to communicate between the server and the client.
+
+The code first creates a linked list of persons using the function create_linked_list() from person.h header file. 
+Then it prints the list on the console.
+
+It then creates a socket using the socket() function and sets the socket options using setsockopt(). 
+It then binds the socket to the specified port and starts listening for incoming connections using the listen() function.
+
+The code enters an infinite loop and waits for incoming connections using the accept() function. 
+Once a client connects, it sends the number of persons in the register to the client using the send() function. 
+It then sends each person in the register separately by iterating over the linked list and formatting each person's data as a string using sprintf() before sending it using send().
+
+Once all persons have been sent, it closes the connection using close() and waits for another connection. 
+If an error occurs during any of these steps, it prints an error message and exits.
+
+Overall, this code implements a simple server that sends a list of persons to a client over a network using sockets.
+
+*/
+
+
 #include "person.h"
 #include <stdio.h>
 #include <stdlib.h>

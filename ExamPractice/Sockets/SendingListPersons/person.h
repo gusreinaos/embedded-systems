@@ -6,6 +6,7 @@ typedef struct {
     char sPnr[MAX];     // Person’s social security number 
     char sAddress[MAX]; // Person’s city of residence 
     int iAge:
+    Person* next;
 } Person; 
 
 Person* createLinkedList(void);
