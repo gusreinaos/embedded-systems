@@ -30,3 +30,7 @@ int main() {
 
     return 0;
 }
+
+/* GENERAL COMMENTS */
+//In summary, malloc() is used to dynamically allocate memory when the size of the object is not known at compile time, or when we want to create a variable that persists beyond the current scope.
+
