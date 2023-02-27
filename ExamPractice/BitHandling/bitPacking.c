@@ -38,6 +38,9 @@ int main (int argc, char *argv[]) {
         printf("Error: brake2 must be 0 or 1\n");
         return 1;
     }
+
+    //Construimos un byte de derecha a izquierda echando los elementos hacie la cabeza del byte
+    //Empujamos el valor << tantas posiciones
     
     //We define the byte as 0 so that in binary it is 0 therefore we can set all of the new values better
     //We set the value engine_on from the 0 value and shifting 7 positions to the left as it only takes one bit
