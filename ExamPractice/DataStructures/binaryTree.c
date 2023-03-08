@@ -35,26 +35,39 @@ Node * CreateNode(int val)
 }
 
 
-void delete_node(Node *root, int val) {
+Node * delete_node(int val, Node *root) {
     if (root == NULL) {
-        return;
+        return NULL; // node not found
     }
-    if (root->data == val){
-        //We delete all occurrences of the same node
-        delete_node(root->left, val);
-        delete_node(root->right, val);
-        free(root);
-        return;
+    if (val < root->data) {
+        root->left = deleteNode(val, root->left);
+    } else if (val > root->data) {
+        root->right = deleteNode(val, root->right);
+    } else {
+        if (root->left == NULL) {
+            Node *temp = root->right;
+            free(root);
+            return temp;
+        } else if (root->right == NULL) {
+            Node *temp = root->left;
+            free(root);
+            return temp;
+        } else {
+            Node *temp = findMin(root->right);
+            root->data = temp->data;
+            root->right = deleteNode(temp->data, root->right);
+        }
     }
-    
-    if(val < root->data) {
-        delete_node(root->left, val);
-    }
-
-    else if(val > root->data) {
-        delete_node(root->right, val);
-    }
+    return root;
 }
+//Encontramos el mas pequeno del subtree de la derecha que es el que tenemos que intercambiar con el nodo que queremos eliminar
+Node *findMin(Node *root) {
+    while (root->left != NULL) {
+        root = root->left;
+    }
+    return root;
+}
+
 
 void deleteTree(Node *root) {
     if(root->left == NULL && root->right == NULL) {
