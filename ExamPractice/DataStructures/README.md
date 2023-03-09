@@ -27,5 +27,7 @@
     return length; 
     } 
     ``` 
+    **Aunque siempre observar como estan hechos el resto de los metodos para ver si tenemos que generar un puntero temporal o no**
+
 
 

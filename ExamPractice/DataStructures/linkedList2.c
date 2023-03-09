@@ -86,7 +86,23 @@ void printList() {
     } 
  
     printf(" ]"); 
-} 
+}
+
+void deleteList() {
+    node *ptr = head;
+    
+    if (head != NULL))
+    {
+        while(ptr->next != NULL){
+            ptr = ptr->next;
+            free(ptr);
+        }
+        free(ptr);
+    }
+    
+    
+    while()
+}
  
 void main() { 
     insertFirst(1, 10); 
