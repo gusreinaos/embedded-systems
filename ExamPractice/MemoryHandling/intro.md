@@ -8,4 +8,4 @@
 - Memory leak: forget to free the space (loss of memory), gives us manual memory management
 
 NOTES:
-- Cuando usamos el arroe operator no tenemos que usar el * delante pues ya estamos indicando que estamos accediendo el atributo de un pointer a una structure. También podemos usar (*p3).x = 2; en caso de que queremos dereferenciar el pointer y accederlo de forma normal (aunque no es muy recomendado)
+- Cuando usamos el arrow operator no tenemos que usar el * delante pues ya estamos indicando que estamos accediendo el atributo de un pointer a una structure. También podemos usar (*p3).x = 2; en caso de que queremos dereferenciar el pointer y accederlo de forma normal (aunque no es muy recomendado)

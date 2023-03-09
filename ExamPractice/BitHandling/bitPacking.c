@@ -69,3 +69,11 @@ Finally, it packs the values into a byte using bitwise operators (|= and <<) and
 //FOR SETTING BINARY VALUES WE USE THE BITWISE OR OPERATOR
 
 //FOR COMPARING OR CHECKING WE CAN USE THE AND BITWISE OPERATOR AND THEREFORE MASK THE VALUE 
+
+//EVERYTIME YOU DO BITWISE OPERATIONS YOU NEED TO COMPARE THEM WITH THE LEAST SIGNIFICANT BIT (THE ONE AT THE VERY RIGHT)
+
+//Hexadecimal number --> unsigned char
+
+/*
+This is because each bit in a binary number represents a power of 2. The rightmost bit represents 2^0, the second-rightmost bit represents 2^1, the third-rightmost bit represents 2^2, and so on. Therefore, to convert a binary number to decimal, you need to multiply each bit by the corresponding power of 2 and sum the results.
+*/

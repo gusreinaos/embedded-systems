@@ -36,6 +36,8 @@ int main(){
     char* result = concatenateStrings(str1, str2);
     printf("Concatenated string: %s", result);
 
+
+    //Free needs to always be done as the last thing 
     free(result);  // free dynamically allocated memory
     return 0;
 }
