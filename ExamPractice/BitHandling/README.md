@@ -11,5 +11,5 @@ Esto es si comparamos nuestro actual numero con un numero en binario con todo 0s
 
 - Hexadecimal number --> unsigned char
 
-- 
+- A byte starts counting from 0 until 7 (included) - 8 spaces
 
