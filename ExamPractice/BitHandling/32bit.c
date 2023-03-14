@@ -13,10 +13,8 @@ void print_bin(int number) {
         {
             printf(".");
         }
-
     }
 }
-
 
 int main() {
     print_bin(15);
