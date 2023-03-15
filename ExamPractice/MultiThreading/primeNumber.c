@@ -28,6 +28,10 @@ int main(int argc, char *argv[]) {
     pthread_t pthreads[argc - 1];
     for(int i = 0; i < argc -1; i++) {
         pthread_create(&pthreads[i], NULL, primeChecker, (void *) atoi(argv[i + 1]));
+    }
+
+   //We need to use the join in another loop as we need to wait for every thread to be created
+    for(int i = 0; i < argc -1; i++) {
         pthread_join(pthreads[i], NULL);
     }
 
