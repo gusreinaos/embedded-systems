@@ -7,6 +7,11 @@ Esto es si comparamos nuestro actual numero con un numero en binario con todo 0s
 
 - Para bitpacking añadir valores usamos el bitwise operator |= (lo que haya que introducir) << (donde en el byte)
 
+- Para hacer el decode debitpacking tenemos que declarar un char pointer y despues usar un unsigned long byte que vamos a declarar. Al cual le vamos a igualar un strtoul(atoi(argv[1])], pointer, 16);
+Una vez tenemos este valor vamos a decodificarlo de la misma forma:
+    1. int valor = byte_hex >> 7 & 1 (lo sacamos para afuera tantas posiciones donde este y lo comparamos con su respectivo máximo valor que puede llegar a tomar)
+
+
 - Para comparar bits podemos hacer right shitfing porque siempre comparamos el ultimo significant bit y usar el & operator para ver si el resultado es 1 o 0. 
 
 - Hexadecimal number --> unsigned char

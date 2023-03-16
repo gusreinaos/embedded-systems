@@ -9,3 +9,5 @@
 
 NOTES:
 - Cuando usamos el arrow operator no tenemos que usar el * delante pues ya estamos indicando que estamos accediendo el atributo de un pointer a una structure. También podemos usar (*p3).x = 2; en caso de que queremos dereferenciar el pointer y accederlo de forma normal (aunque no es muy recomendado)
+
+- Al concatenar y hacer malloc de la string resultante tenemos que tambien contar la ultima posicion en la que se encuentra el end of file: '\0'
