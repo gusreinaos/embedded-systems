@@ -1,15 +1,20 @@
+// (C) Juan García, Oscar Reina, Jan Manel, group: 19 (2023) 
+// Work package 1
+// Exercise 1.5
+// Submission code: 901234ER (provided by your TA-s) 
 #include <stdio.h> 
-#include <stdlib.h> 
-#include <time.h>
+#include <stdlib.h>
+#include <time.h> 
  
 #define MAX 100 // Defines the maximum number of the values in the table 
 #define MAXNUMBER 20 // Defines the maximum value of random numbers 
-
+ 
+ 
 // ------ Function declarations   ----------  
  
 // This function generates a set of random numbers 
 // and fills the table *tab with these numbers 
-void create_random(int *tab );
+void create_random(int *tab );   
  
 // This function takes the *tab of random numbers 
 // and creates a table with the frequency counts for these numbers 
@@ -20,10 +25,20 @@ void count_frequency(int *tab, int *freq );
 void draw_histogram(int *freq );  
  
 // ------ Function definitions   ---------- 
-
-void create_random(int *tab) {
-    for(int i = 0; i < MAX; i++) {
-        tab = rand() % (MAXNUMBER + 1);
+ 
+void create_random(int *tab){
+    
+    for (int i = 0; i < MAX; ++i)
+    {
+        //we generate a random integer between 0 and 20
+        int random = rand() % (MAXNUMBER+1);
+        //if we uncomment the next lines we won't generate any number 3
+        /*while(random==3){
+            random = rand() % (MAXNUMBER+1);
+        }*/
+        //we assign to the place of memory pointed by tab the number
+        *tab = random;
+        //we go to the next adress of the array
         tab++;
     }
 }
@@ -55,7 +70,8 @@ void count_frequency(int *tab, int *freq){
     }
 
 
-}   
+}
+
 
 void draw_histogram(int *freq){
     //for each value of freq
@@ -67,10 +83,9 @@ void draw_histogram(int *freq){
             //print a number of x equal to the value of the frequency
             printf("%d   %.*s\n", i,*freq, "xxxxxxxxxxxxxxxxxxxx");
         }        
-        *freq++;
+        freq++;
     }
 }
-
  
 // ------ Main   -------------------------- 
  
@@ -79,7 +94,8 @@ void draw_histogram(int *freq){
 // If you choose to go for the optional part 
 // Please modify it accordingly 
 int main (void){ 
-    srand(time(NULL));
+ 
+    srand (time(NULL));
     int table[MAX]; 
     int frequency[MAXNUMBER];
 
@@ -88,4 +104,4 @@ int main (void){
     create_random(tab);
     count_frequency(tab,freq);
     draw_histogram(freq);        
-} 
+}
